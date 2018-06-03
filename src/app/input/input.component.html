@@ -1,0 +1,2 @@
+<input [ngModel]="value" (ngModelChange)="updateValue($event)" [type]="type" [placeholder]="placeholder">
+<span *ngIf="!!value" (click)="clear()" class="clear"><img src="/assets/img/cancel.svg"></span>

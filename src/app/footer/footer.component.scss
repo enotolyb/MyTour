@@ -1,0 +1,57 @@
+:host {
+  background-color: white;
+  display: flex;
+  justify-content: center;
+
+  .box {
+    margin: 0 auto;
+    max-width: 1180px;
+    h2 {
+      font-family: 'Open Sans', sans-serif;
+      font-size: 14px;
+      margin: 54px 0 20px 0;
+    }
+    &-contact {
+      align-items: flex-start;
+      display: flex;
+      justify-content: space-between;
+      margin: 20px 0 37px 0;
+
+      &__col {
+        &:last-of-type {
+          max-width: 135px;
+        }
+      }
+
+      &__item {
+        align-items: center;
+        color: #8d8589;
+        display: flex;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+        text-decoration: none;
+      }
+
+      .item-social {
+        align-items: center;
+        color: #8d8589;
+        display: flex;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 14px;
+        margin-right: 100px;
+        text-decoration: none;
+
+        &:hover {
+          color: #ff8e41;
+        }
+
+        img {
+          margin-right: 10px;
+          max-height: 16px;
+          max-width: 16px;
+        }
+      }
+
+    }
+  }
+}

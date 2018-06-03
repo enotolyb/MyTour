@@ -1,0 +1,28 @@
+:host {
+  .menu {
+    min-width: 1180px;
+    background-image: url("../../assets/img/slice-1.png");
+    background-repeat: no-repeat;
+    background-position: left;
+
+    ul {
+      list-style: none;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      margin-left: 60px;
+    }
+
+    li {
+      margin: 0 20px;
+      font-size: 15px;
+      color: white;
+      font-family: 'Open Sans', sans-serif;
+      cursor: pointer;
+
+      .check {
+        font-weight: bold;
+      }
+    }
+  }
+}

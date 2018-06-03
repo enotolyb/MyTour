@@ -1,0 +1,169 @@
+<h1 class="name-form">Настройки интересов</h1>
+<div class="block-form">
+  <div class="block-form__compilation">
+    <div class="position-complication">
+      <a class="compilation-col"
+         *ngFor="let item of list"
+         (click)="selected = item.id"
+         [class.check]="item.id === selected">{{ item.name }}</a>
+      <!--a class="compilation-col">ПОДБОРКА 123</a>
+      <a class="compilation-col">ТУРЦИЯ 20.03</a>
+      <a class="compilation-col">ПОДБОРКА #1</a-->
+      <button class="compilation-btn" (click)="addCompilation()">ДОБАВИТЬ ПОДБОРКУ</button>
+    </div>
+  </div>
+  <div class="strip"></div>
+  <div class="position">
+    <div class="block-form__inform">
+      <div class="block-form__filling">
+        <div class="field-name">Название подборки</div>
+        <app-input [(ngModel)]="current!.name" placeholder="Имя подборки"></app-input>
+      </div>
+      <div class="block-form__filling">
+        <div class="field-name">Ваш город</div>
+        <app-input [(ngModel)]="current!.from" name="city" placeholder="Ваш город"></app-input>
+      </div>
+      <div class="block-form__result">
+        <button class="result-btn">
+          СМОТРЕТЬ РЕЗУЛЬТАТЫ
+          <img src="/assets/img/arrow.svg" alt="">
+        </button>
+      </div>
+    </div>
+    <div class="block-form__countries">
+      <div class="field-name">Вы можете задать несколько стран или регионов для одной подборки</div>
+      <div class="countries-box">
+        <div *ngFor="let direction of current!.directions; let di = index">
+          <div class="region-name">
+            <div class="region">{{ direction.region }}</div>
+          </div>
+          <div class="countries-name">
+            <div class="countries" *ngFor="let country of direction!.countries; let i = index">
+              <img class="flag" [src]="country.flag" alt="">
+              {{ country.name }}
+              <img (click)="removeCountry(di, i)" class="cancel" src="/assets/img/cancel.svg" alt="">
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="countries-find">
+        <button class="btn-secondary" (click)="addRegionForm.open()">ДОБАВИТЬ РЕГИОН</button>
+        <button class="btn-secondary" (click)="addCountryForm.open()">ДОБАВИТЬ СТРАНЫ</button>
+      </div>
+    </div>
+
+    <app-modal #addRegionForm>
+      <div class="modal-form">
+        <select class="select" [(ngModel)]="selectedDirection">
+          <option *ngFor="let direction of availableDirections" [value]="direction.region">{{ direction.region }}
+          </option>
+        </select>
+        <button class="btn-secondary" (click)="addRegion()"> Добавить</button>
+      </div>
+    </app-modal>
+
+    <app-modal #addCountryForm>
+      <div class="modal-form">
+        <select class="select" [(ngModel)]="selectedCountry">
+          <option *ngFor="let country of availableCountries"
+                  [ngValue]="country">
+            {{ country.name }}
+          </option>
+        </select>
+        <button class="btn-secondary" (click)="addCountry()"> Добавить</button>
+      </div>
+    </app-modal>
+
+    <div class="block-form__conditions">
+      <div>
+        <div class="field-name">Даты вылета</div>
+        <input type="text"
+               [(ngModel)]="current.departure"
+               data-range="true"
+               data-multiple-dates-separator=" - "
+               class="datepicker-here input-date"/>
+      </div>
+      <div>
+        <div class="field-name">На сколько</div>
+        <div class="input-night" (click)="daysForm.open()">
+          {{ current.days.from }} - {{ current.days.to }} ночей
+        </div>
+        <app-modal #daysForm>
+          <div class="modal-form">
+            От: <app-input [(ngModel)]="current.days.from"></app-input>
+            До: <app-input [(ngModel)]="current.days.to"></app-input>
+          </div>
+          <button class="btn-secondary" (click)="daysForm.close()">Ок</button>
+        </app-modal>
+      </div>
+      <div>
+        <div class="field-name">Количество гостей</div>
+        <div class="input-people" (click)="peopleForm.open()">
+          {{ current.people.adult }} взрослых
+          <ng-container *ngIf="+current.people.child">
+            , {{ current.people.child }} детей
+          </ng-container>
+        </div>
+        <app-modal #peopleForm>
+          <div class="modal-form">
+            Взрослых: <app-input [(ngModel)]="current.people.adult"></app-input>
+            Детей: <app-input [(ngModel)]="current.people.child"></app-input>
+          </div>
+          <button class="btn-secondary" (click)="peopleForm.close()">Ок</button>
+        </app-modal>
+      </div>
+      <div>
+        <div class="field-name">Стоимость тура</div>
+        <div class="input-price" (click)="priceForm.open()">
+          {{ current.price.from }} Р - {{ current.price.to }} Р
+        </div>
+        <app-modal #priceForm>
+          <div class="modal-form">
+            От: <app-input [(ngModel)]="current.price.from"></app-input>
+            До: <app-input [(ngModel)]="current.price.to"></app-input>
+          </div>
+          <button class="btn-secondary" (click)="priceForm.close()">Ок</button>
+        </app-modal>
+      </div>
+    </div>
+    <div class="block-form__categories">
+      <div>
+        <div class="field-name">Категория отелей от</div>
+        <div class="input-star">
+          <app-star [(ngModel)]="current.hotelStar"></app-star>
+        </div>
+      </div>
+      <div>
+        <div class="field-name">Рейтинг TopHotels</div>
+        <div class="input-rating">
+          <select class="flat-select">
+            <option>Не ниже 1</option>
+            <option>Не ниже 2</option>
+            <option>Не ниже 3</option>
+            <option>Не ниже 4</option>
+            <option>Не ниже 5</option>
+          </select>
+          <img src="/assets/img/rating.svg" alt="">
+        </div>
+      </div>
+      <div>
+        <div class="field-name">Тип питания</div>
+        <select class="input-food select">
+          <option>Любой</option>
+          <option>Без питания</option>
+          <option>3-х разовое</option>
+        </select>
+      </div>
+      <div>
+        <div class="field-name">Расположение</div>
+        <select class="input-location select">
+          <option>Пляжные, 1-я линия</option>
+          <option>Пляжные, 2-я линия</option>
+          <option>Пляжные, 3-я линия</option>
+          <option>Центр города</option>
+        </select>
+      </div>
+      <button class="delite-btn" (click)="removeCompilation()">УДАЛИТЬ ПОДБОРКУ</button>
+    </div>
+  </div>
+</div>

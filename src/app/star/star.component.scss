@@ -1,0 +1,64 @@
+:host {
+  display: flex;
+}
+
+$color-selected: #FFCA00;
+$color-default: #DFDFDF;
+
+.star {
+  width: 0;
+  height: 0;
+  margin: 6.5px 2px;
+  color: $color-default;
+  position: relative;
+  display: block;
+  border-right: 10.4px solid transparent;
+  border-bottom: 7.3px solid $color-default;
+  border-left: 10.4px solid transparent;
+  transform: rotate(35deg);
+  cursor: pointer;
+
+  &:before {
+    height: 0;
+    width: 0;
+    position: absolute;
+    display: block;
+    top: -4.7px;
+    left: -6.7px;
+    border-bottom: 8.3px solid $color-default;
+    border-left: 3px solid transparent;
+    border-right: 3px solid transparent;
+    content: '';
+    transform: rotate(-35deg);
+  }
+
+  &:after {
+    content: '';
+    width: 0;
+    height: 0;
+    position: absolute;
+    display: block;
+    top: 0px;
+    left: -10.9px;
+    color: $color-default;
+    border-right: 10.4px solid transparent;
+    border-bottom: 7.3px solid $color-default;
+    border-left: 10.4px solid transparent;
+    transform: rotate(-70deg);
+  }
+
+  &.check {
+    border-bottom-color: $color-selected;
+    color: $color-selected;
+
+    &:before {
+      border-bottom-color: $color-selected;
+    }
+
+    &:after {
+      color: $color-selected;
+      border-bottom-color: $color-selected;
+    }
+  }
+}
+
